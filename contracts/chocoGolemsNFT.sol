@@ -18,6 +18,7 @@ contract chocoGolemsNFT is ERC721, Ownable{
     address payable public withdrawWallet; // wallet to which the minting funds will be transferred
     mapping(address=>uint256) public walletMint;// mapping to keep track of the number of NFTs minted by a wallet
 
+    // constructor
     constructor() payable ERC721('chocoGolems','cG'){
         mintPrice = 0.05 ether;
         totalSupply = 0;
@@ -39,16 +40,20 @@ contract chocoGolemsNFT is ERC721, Ownable{
         return string(abi.encodePacked(baseURI, Strings.toString(tokenId_),".json"));
     }
 
+    // Setting the withdraw function
     function withdraw() external onlyOwner{
         (bool success,) = withdrawWallet.call{value: address(this).balance}('');
         require(success, 'Withdrawal failed');
     }
 
+    // Main minting function
     function mint(uint256 quantity_) public payable{
         require(isPublicMintEnabled, 'Public minting is not enabled');
         require(totalSupply + quantity_ <= maxSupply, 'Sold out');
         require(walletMint[msg.sender] + quantity_ <= maxPerWallet, 'Exceeds maximum per wallet');
         require(msg.value >= mintPrice * quantity_, 'Insufficient funds');
+
+        // updating the walletMint mapping
         for(uint256 i = 0; i < quantity_; i++){
             uint256 tokenId = totalSupply + 1;
             totalSupply += 1;
