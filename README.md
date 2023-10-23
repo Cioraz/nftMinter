@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# NFT-Minter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Progress
+- Managed to create a smart contract to create a new ERC721 NFT.
+- Deployed the contract to the following address 0xD4eE5c000B55d28ea53CbE35840aC5F864D7Be13 on the ethereum sepolia testnet.
 
-## Available Scripts
 
-In the project directory, you can run:
+### Explanation of the contract
+- Importing the necessary openzeppelin contract standards.
+- Named the NFT chocoGolems where its inherited from the ERC721 standards
+- Declared the necessary variables to ensure smooth going of the contract.
+- Created a mapping, to map the address of the users to the number of NFT's minted by them to ensure each user has a set number of NFT's to mint.
+- Gave the mintPrice as 0.05 ETH
+- Total collection has 3000 NFT's
+- Each User can have a max of 5 NFT's per wallet.
 
-### `npm start`
+# Functions
+## setPublicMintEnable
+- This is to toggle the public minting of the NFT's
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## setBaseURI
+- This is to set the endpoint for our metadata here it will be out image hosted on platforms like IFPS.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## tokenURI
+- Generates URI for metadata for the NFT
+- If NFT doesnt exist, it combines base URL(base URI) and the NFT ID and a .json file extension to create the metadata URI
+- This is used by external applications to display information about that NFT.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## withdraw
+- This will withdraw the amount from the contract
 
-### `npm run build`
+## mint
+- This is the main minting function
+- It first checks if public minting is enabled
+- Then ensures that NFT is not sold out
+- It also requires that the User cant mint beyond his max number per wallet
+- Also ensures that user has enough funds to mint
+- Then it uses the _safeMint from the library to safely mint the required number of NFT's
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Stuff to do
+- Dint manage to finish the frontend of the app.
+- Could have optimised the smart contract
